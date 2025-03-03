@@ -41,6 +41,8 @@ El curso completo lo podemos encontrar en :
 28. [GitHub Pages y Actions](#github-pages-y-actions)
 29. [Guía rápida para crear un proyecto y subirlo a GIT](#guía-rápida-para-crear-un-proyecto-y-subirlo-a-git)
 30. [Atajos](#atajos)
+31. [Guía rápida Git Flow](#guía-rápida-git-flow)
+
 ## Configuración Inicial
 
 ```sh
@@ -390,7 +392,6 @@ git flow release finish 1.0  # Fusionar en main y eliminar rama release
 Ir a github y crear un repositorio con el .gitignore de python o el que toque.
 
 
-
 Entrar en la carpeta donde se encuentra el proyecto
 
 ```sh
@@ -432,6 +433,24 @@ Para subir un cambio a main
 git switch main
 git pull origin main
 ```
+
+
+## Guía rápida Git Flow
+```sh
+git flow init  
+git flow feature start auth  
+
+# hago cambios
+git add .
+git commit -m "Añadiendo autenticación"
+git flow feature finish auth  # Fusionar cambios en develop
+# me borra la rama, me pone los cambios en develop y me pone en la rama develop
+
+git flow release start 1.0  # Crear una release
+git flow release finish 1.0  # Fusionar en main y eliminar rama release
+git push origin main   # subimos los camios al main
+```
+
 
 # Atajos
 
