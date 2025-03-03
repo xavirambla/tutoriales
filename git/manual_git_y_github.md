@@ -386,11 +386,17 @@ git flow release finish 1.0  # Fusionar en main y eliminar rama release
 
 
 # Guía rápida para crear un proyecto y subirlo a GIT
+
+Ir a github y crear un repositorio con el .gitignore de python o el que toque.
+
+
+
 Entrar en la carpeta donde se encuentra el proyecto
 
 ```sh
 git init
 git branch -m main
+echo "" > readme.md
 git add .
 git commit -m "First version"
 git config --global alias.tree "log --graph --decorate --all --oneline"
@@ -398,6 +404,7 @@ git tree
 git remote add origin git@github.com:xavirambla/tutoriales.git
 git pull origin main --rebase
 git push origin main
+# git push --set-upstream origin main
 ```
 
 Ya estamos sincronizados, creamos ramas y a trabajar
