@@ -39,7 +39,7 @@ El curso completo lo podemos encontrar en :
 26. [Herramientas Gráficas](#herramientas-gráficas)
 27. [Flujo de Trabajo con Git Flow](#flujo-de-trabajo-con-git-flow)
 28. [GitHub Pages y Actions](#github-pages-y-actions)
-
+29. [Guía rápida para crear un proyecto y subirlo a GIT](#guía-rápida-para-crear-un-proyecto-y-subirlo-a-git)
 
 ## Configuración Inicial
 
@@ -382,3 +382,28 @@ git flow release finish 1.0  # Fusionar en main y eliminar rama release
 
 - **GitHub Pages** permite publicar proyectos como sitios web.
 - **GitHub Actions** automatiza pruebas, builds y despliegues.
+
+
+
+# Guía rápida para crear un proyecto y subirlo a GIT
+Entrar en la carpeta donde se encuentra el proyecto
+
+```sh
+git init
+git branch -m main
+git add .
+git commit -m "First version"
+git config --global alias.tree "log --graph --decorate --all --oneline"
+git tree
+git remote add origin git@github.com:xavirambla/tutoriales.git
+git pull origin main --rebase
+git push origin main
+```
+
+Ya estamos sincronizados, creamos ramas y a trabajar
+
+```sh
+git branch cambios
+git switch cambios
+
+```
