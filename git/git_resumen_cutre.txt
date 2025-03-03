@@ -1,0 +1,317 @@
+
+
+
+https://www.youtube.com/watch?v=3GymExBkKjE
+
+crear una carpeta para el proyecto
+
+mkdir HelloGit
+cd HelloGit
+code .      //abre vscode
+
+// configurar git
+git config --global user.name "Xavi"                // configuración a nivel global
+git config --global user.email "xavirambla@yahoo.es"
+
+
+# crear un git
+mkdir helloGit
+cd helloGit
+git init                    // inicializar el git. Ahora la carpeta está añadida en el git local
+oh my zsh
+
+//ramas en git
+git branch -m main    //cambiamos de master a main
+
+//git add y commit
+git status		//estado del proyecto
+git add hellogit.py
+git commit -m "este es mi primer commit"
+
+
+// git log y git status
+git log     // sabemos lo que se ha hecho
+git add hellogit2.py
+git commit -m "este es mi segundo commit"
+
+//git checkout y reset
+git checkout   hellogit2.py            // rollback de los cambios  (volvemos para atrás )
+git reset                            // volver para atrás a la última fotografia
+
+
+git log --graph
+git log --graph --pretty=oneline
+git log --graph --decorate --all --oneline
+
+// git alias
+git config --global alias.tree "log --graph --decorate --all --oneline"     //  creamos un alias para reducir los comandos
+git tree                              // vemos la ejecucion del alias.
+
+//gitignore
+crear fichero .gitignore
+**/config.ini      // cualquier config.ini en cuanlquier carpeta o subcarpeta los ignorará
+
+git commit -m "Añadimos el gitignore"
+git add .gitignore
+
+//git diff
+git diff     // ver las diferencias que hay respecto la última versión.
+
+
+//desplazamiento
+git checkout hellogit.py     // vuelve el contenido a su estado inicial
+git checkout c528bc0fdf04631f8d0431db4057dc970d1f6edd         //nos movemos al estado  del checkout
+git checkout HEAD                // git inicial
+
+git checkout cd71041     // nos movemos a la fotografia
+
+
+// git reset 
+git reset                // descartar cambios
+git reset --hard           // borra las ramas  y ya no se pueden visualizar
+git reflog                     // vemos el historial completo de iteraciones del git
+git checkout cd71041       // me descargo los cambios a la rama que se fisualiza al reflog
+
+
+//git y github desde 0
+
+Tag -> etiqueta
+se utilizan cuando son puntos importantes. Ej. versiones
+
+git tag clase_1
+
+
+git add .   // añade todos los cambios al stage
+git commit -m ""   // nuevo commit
+git tag      // ver los tags
+git checkout clase_1    // nos vamos a la versión del tag
+git checkout main       // vamos a la última fotografia
+
+git revert              // eliminamos un commit   , no usar
+
+
+git branch i switch
+git branch login     // creamos una ramma llamada login
+git switch login     // me coloco en la rama login
+
+
+// juntar ramas
+
+Pasar todo lo del main a mi rama Login
+
+git switch login
+git merge  main    // fusionamos, ponemos lo del head con nuestra rama
+
+
+
+
+//conflictos en git
+
+hago un cambio en la rama login
+commit del cambio
+y vuelvo al head.
+
+hago un cambio sobre el mismo fichero. y lo commit
+git switch login
+hago un cambio sobre el mismo fichero. y lo commit
+
+git merge main    // aparece un conflicto
+// en el fichero aparece el conflicto, dejo la línia correcta y guardo
+git add .
+git commit  
+
+// se corrige el conflicto y desaparece el problema.
+
+
+//git stash
+git switch main     / / no me deja moverme pq he ehcho un cambio y no lo he subido pq todavía no me funciona
+git stash   //comando stash , guarda en local pero no me hagas commit y no afecta al arbol
+git stash list
+git switch main
+git switch login
+
+git stash pop     // recupero todo  lo uqe había guardado en local.
+git stash drop     // borro lo que hay en el stash.
+
+
+
+//reintegración en git
+
+git switch main
+git diff  login               // comprueba si hay conflictos entre ficheros o ramas
+git  merge login                       // colocamos las cosas a la rama principal
+git checkout main               // nos vamos a la última fotografia valida
+g
+
+
+//eliminacion de ramas
+git branch -d login                 // nos cargamos la rama
+git branch          // miramos las ramas
+git reflog               // vemos todos los commits
+
+
+
+//github
+https://github.com
+github   codigo guardado en un servidor remoto (cloud)
+repositorio    // es una carpeta donde tenemos el código de un proyecto.
+stars 		// favoritos
+
+//configurar interactuar con github
+
+
+//authentication vía ssh
+powershell cómo administrador
+creo una carpeta .ssh para guardar los certificados
+ssh-keygen -t ed25519 -C "xavirambla@yahoo.es"
+// le pongo un nombre fácil para saber que es id_rsa_github_xavirambla
+// ahora hay que coger el fichero .pub (clave pública) para pasarla a github
+
+Get-WindowsCapability -Online | Where-Object {$_.Name -like 'OpenSSH.Client*'}    // nos dice si tenemos open sssh instalado
+Set-Service -Name ssh-agent -StartupType Automatic    // habilitar el servicio ssh
+Start-Service ssh-agent      // arrancamos el servicio ssh
+
+o ejectuamos esto para que ssh-agent se ejecute manualmente
+Get-Service ssh-agent | Set-Service -StartupType Manual
+Start-Service ssh-agent
+
+
+
+crear un fichero config para la configuración  
+
+ssh-add c:/Users/casa/.ssh/id_rsa_github_xavirambla    // hemos añadido la entidad 
+ssh-add ~/.ssh/id_rsa_github_xavirambla
+
+ssh-add -l               // comprobar que la clave se ha introducido correctamente
+
+// ahora debemos ir a github y poner la clave
+
+Ahora vamos a github , a nuestro usuario
+Vamos a settings de nuestro usuario.
+entramos a SSH and GPG keys
+
+Pulsamos en New SSH Key.
+Abrimos nuestra clave id_rsa_github_xavirambla.pub con un editor de texto
+
+Copiamos ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPovE+83Ub695XrDxuShjy3BXPyWdcleIj44xCgYOUgj xavirambla@yahoo.es
+y añadimos la clave publica
+
+Añadida.
+
+Probamos la clave
+
+ssh -T git@github.com
+
+si da error quitamos del config o comentamos
+# UseKeychain yes
+
+volvemos a ejecutar
+ssh -T git@github.com
+
+
+
+y ahora no da error y le decimos que si
+
+Si ahora lanzamos 
+ssh -T git@github.com
+ahora nos dirá que si estamos autenticados en github pero no tenemos acceso al shell   (Es ok)
+
+//volvemos al repositorio
+
+Creamos un nuevo proyecto
+
+//conectamos nuestro repositorio local con el repositorio remoto creado antes
+
+Me voy a la carpeta del proyecto
+asociamos nuestro repositorio con el repositorio de github
+git remote add origin git@github.com:xavirambla/hello-git.git
+
+//subimos los cambios al github
+git push -u origin main                       // ponemos los cambios al origen de la branca main                   
+
+si nos da error la linea anterior, cam
+git remote set-url origin https://github.com/xavirambla/hello-git.git
+git remote set-url origin git@github.com:xavirambla/hello-git.git
+
+ahora funcionará pero nos pedirá autenticarnos de nuevo
+
+
+//subida a proyecto
+añadir un readme desde la web de github
+
+add 
+commit
+subir a github
+git push            // no me deja subir  pq no estás actualizado
+
+//git fetch i git pull
+git fetch                    // descargarse en local el historial de cambios    , sin cambios
+git pull                    // descargarse en local el historial de cambios    , con cambios
+// ahra nos dice que no lo tiene claro, debemos configurarlo
+//guardamos , y nos descargará el cambio
+
+//git clone                // bajamos el trabajo de nuevo
+creamos otra carpeta hellogit2
+git clone git@github.com:xavirambla/hello-git.git
+
+
+//git fork    
+
+git clone git@github.com:mouredev/hello-git.git
+hago un cambio
+git push                       // falla pq no tengo permisos
+entrar en github y hacer un fork    // para hacer cambios en tu repositorio 
+ahora nos lo descargamos con un clone sobre nuestro repositorio
+ahora puedo hacer cambios ysubirlos. Sube a mi repositorio y no a mouredev
+
+// poner al repositorio original, mis cambios realizados en el fork
+ir a github y pulsar 'Sync fork' para sincronizar mi repositorio con el original. Es un merge
+//pull request
+'Contribute' -> open pull request   
+Crea una pull request, para pedir su inclusión al repositorio original
+
+Ahora a mouredev, le sale que tiene una pull request , la revisa y puede aceptarla o no .  'Approve' y añadir comments.
+'Merge pull request'   -> mouredev hace el merge y los juntas.
+
+
+
+
+/// ejercicio practico.
+//Issue.  Es reportar un error para uqe se revise
+
+//sincronización fork
+pulsar 'sync fork'    -> Podemos escoger comparar los cambios o actualizar sin mirar.
+
+ #github markdown
+readme.md
+
+#herramientas gráficas
+github desktop      
+gitkraken.com
+
+instalargitflow
+git flow init                 //  ponemos el proyecto en estilo git-flow
+ya me pone en la rama develop
+
+git flow feature start 2auth     // creo una feature (rama) 
+// creo un fichero
+git add .
+git commit -m "adding auth"
+git flow feature finish 2auth    // cierra la rama, actualiza develop 
+// me borra la rama y me pone los cambios en develop
+git flow release start 1.0                    // ponemos los cambios para subir en una rama llamada release 1.0
+git flow release finish 1.0                  // ponemos los cambios a subir en el main (producción ) y elimina la rama release
+
+ahora tenemos actualizado develop y main.
+
+
+//Muy poco usados
+git cherry-pyck identificador_commit           //    posibilidad de ir a un commit concreto, traerlo a la rama actual. Sabemos que existe pero suel
+git rebase aaaa                // traernos una rama a un punto concreto. Modifica el propio historial. Adelantar la rama
+
+//git hub pages y actions
+pages.github.com      // posibilidad de que nuestro proyecto pueda ser convertido en una web desplegada.
+github actions        // crear automatizaciones para hacer automatizaciones. PAsar tests , cuando haga push envie un email
+            // hacer el build, publish , y desplegar   
+
+
