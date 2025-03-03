@@ -40,7 +40,7 @@ El curso completo lo podemos encontrar en :
 27. [Flujo de Trabajo con Git Flow](#flujo-de-trabajo-con-git-flow)
 28. [GitHub Pages y Actions](#github-pages-y-actions)
 29. [Guía rápida para crear un proyecto y subirlo a GIT](#guía-rápida-para-crear-un-proyecto-y-subirlo-a-git)
-
+30. [Atajos](#atajos)
 ## Configuración Inicial
 
 ```sh
@@ -407,3 +407,25 @@ git branch cambios
 git switch cambios
 
 ```
+
+Para subir un cambio a main
+```sh
+git add .
+git commit -m "cambios"
+git push origin git
+
+
+```
+y hacemos el pull request para enchufar los cambios a main
+
+Descargar cambios a main
+
+Para subir un cambio a main
+```sh
+git switch main
+git pull origin main
+```
+
+# Atajos
+
+Ver en VSCODE el markdown visualmente  ***Control+Shift+v***
